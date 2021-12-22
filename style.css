@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+a{
+    text-decoration: none;
+    font-weight: 500;
+}
+
+p{
+    color: rgb(131, 131, 131);
+}
+
+.section input:focus,
+.section .btn:focus{
+    box-shadow: none;
+}
+
+.container img{
+    height: 23px;
+}
+
+.btn-my{
+    background-color: rgba(245, 245, 245, 0.753);
+}
+
+.btn-my:hover{
+    background: lightgrey;
+}
+
+.forCenter{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+.container input{
+    background-color: #f5f5f57d
+}
+
+/* ############ sign up classes ############ */
+
+.sgn-head-font{
+    font-size: 16px;
+}
+
+.passwd-note{
+    font-size: 60%;
+    color: rgb(54, 54, 54);
+}
+
+/* ############## Forget password ############# */
+
+.frgtpassFontHead{
+    font-size: 150%;
+    font-weight: 600;
+}
+
+.smlFont{
+    font-size: 78%;
+}
+
+/* ########### forget password ######### */
+
+.fMailHeader-p{
+    font-size: 77%;
+}
+
+/* ########### otp-verfication ########## */
+
+.headOtp{
+    font-size: 150%;
+}
+
+.last-p-update{
+    font-size: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
