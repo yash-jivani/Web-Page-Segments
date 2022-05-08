@@ -38,7 +38,8 @@ def index_html():
 
     if request.method=="POST":
         email_add = request.form["email"]
-        password = request.form["password"]   
+        password = request.form["password"] 
+
           
     return render_template('index.html')
 
