@@ -16,33 +16,44 @@
                 <div class="row justify-content-center">
                     <div class="col-sm-8 col-md-6 col-lg-5 col-xl-4">
                         <div class="card p-5 shadow">
+                            <form action="/otp-verification.html" method="POST">
+                                <h3 class="headOtp text-center">Two Step Verification</h3>
+                                <p class="text-center last-p-update">Enter the verfication code we sent to</p>
+                                <p class="text-dark text-center">********77</p>
 
-                            <h3 class="headOtp text-center">Two Step Verification</h3>
-                            <p class="text-center last-p-update">Enter the verfication code we sent to</p>
-                            <p class="text-dark text-center">********77</p>
+                                <p class="text-center">Type your 6 digit security code</p>
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        <ul class=flashes w-100 style="color:rgb(248, 95, 95); text-decoration: none; font-weight: 600; text-transform: uppercase; text-align: center; list-style: none; border-radius: 0.5rem; background-color: #f0c6c6;">
+                                        {% for category, message in messages %}
+                                        <li class="{{ category }}">{{ message }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <!-- {% for message in get_flashed_messages() %}
+                                        <h2>{{ message }}</h2>
+                                    {% endfor %} -->
+                                    <input type="text" class="form-control me-2" placeholder="" name="first">
+                                    <input type="text" class="form-control me-2" placeholder="" name="sec">
+                                    <input type="text" class="form-control me-2" placeholder="" name="the">
+                                    <input type="text" class="form-control me-2" placeholder="" name="four">
+                                    <input type="text" class="form-control me-2" placeholder="" name="five">
+                                    <input type="text" class="form-control me-2" placeholder="" name="six">
 
-                            <p class="text-center">Type your 6 digit security code</p>
-                            <div class="d-flex justify-content-center align-items-center">
-                                
-                                <input type="text" class="form-control me-2" placeholder="">
-                                <input type="text" class="form-control me-2" placeholder="">
-                                <input type="text" class="form-control me-2" placeholder="">
-                                <input type="text" class="form-control me-2" placeholder="">
-                                <input type="text" class="form-control me-2" placeholder="">
-                                <input type="text" class="form-control me-2" placeholder="">
-
-                            </div>
-                            <div class="text-center my-3">
-                                <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
-                                <a href="reset-password.html" class="btn btn-primary">Submit</a>
-
-                            </div>
-                            <p class="text-center">Didn't get code? <a href="forget-password.html">Resend</a></p>
+                                </div>
+                                <div class="text-center my-3">
+                                    <button class="btn btn-primary" type="submit">verfiy</button>
+                                    <a href="reset-password.html" class="btn btn-primary">sumbit</a>
+                                </div>
+                                <p class="text-center">Didn't get code? <a href="forget-password.html">Resend</a></p>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        </body>
+    </body>
 </html>
