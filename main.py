@@ -1,3 +1,4 @@
+import email
 from flask_mail import Mail, Message
 import sqlite3
 from flask import Flask, flash,render_template,request
@@ -104,6 +105,15 @@ def otp():
 
 @app.route('/reset-password.html',methods=["GET","POST"])
 def reset():
+    if request.method=="POST":
+        email = request.form['email']
+        password = request.form['password']
+    
+        with sqlite3.connect("user.db")as con:
+            cur = con.cursor()
+            cur.execute("UPDATE user SET password=? WHERE email=?",(password,email))
+            con.commit()
+
     return render_template("reset-password.html")
 
 
