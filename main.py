@@ -1,4 +1,5 @@
 import email
+from smtplib import SMTPRecipientsRefused
 from flask_mail import Mail, Message
 import sqlite3
 from flask import Flask, flash,render_template,request
@@ -39,7 +40,17 @@ def index_html():
     if request.method=="POST":
         email_add = request.form["email"]
         password = request.form["password"] 
+        
+        with sqlite3.connect("user.db")as con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM user WHERE email=? AND password=?",(email_add,password))
+            row = cur.fetchall()
 
+            len_row = (len(row))
+            print(len_row)
+
+            if(len_row<1):
+                flash("This user not avalabile")
           
     return render_template('index.html')
 
@@ -47,15 +58,22 @@ def index_html():
 
 @app.route('/forget-password.html',methods=["GET",'POST'])
 def forgot():
-    if request.method=="POST":
-        name = request.form['last']
-        msg = Message(
-                         'Hello',
-                         sender =my_email,
-                         recipients = [name]
-                     )
-        msg.body = f'{otp_gen}'
-        mail.send(msg)
+    try:
+        if request.method=="POST":
+            name = request.form['last']
+        
+            if (len(name)<1):
+                pass
+            
+            msg = Message(
+                            'Hello',
+                            sender =my_email,
+                            recipients = [name]
+                        )
+            msg.body = f'{otp_gen}'
+            mail.send(msg)
+    except SMTPRecipientsRefused:
+        flash("fill requrired filled")
         
     return render_template('forget-password.html')    
 
@@ -68,7 +86,8 @@ def sing_up():
         password= request.form['password']
         conf = request.form['conf']
         if password==conf:
-            
+            if ((len(first)<1)or (len(last)<1) or (len(email)<1) or (len(password)<1)):
+                flash("fill requierd filled")   
             with sqlite3.connect("user.db")as con:
                 first_name = first
                 last_name = last
@@ -77,9 +96,10 @@ def sing_up():
 
                 cur = con.cursor()
                 cur.execute("INSERT INTO user VALUES (NULL,?,?,?,?)",(first,last,email,password))
-                con.commit()  
+                con.commit() 
+              
         else:
-            print("Not ok")        
+            flash("Not Same password")       
         
 
     return render_template('signup.html')
@@ -102,6 +122,7 @@ def otp():
         if final_otp!=otp_gen:
             flash("re enter otp")
            
+           
     return render_template('otp-verification.html')
 
 @app.route('/reset-password.html',methods=["GET","POST"])
@@ -109,11 +130,13 @@ def reset():
     if request.method=="POST":
         email = request.form['email']
         password = request.form['password']
+        if ((len(email)<1) or (len(password)<1)):
+            flash("requried filled enter")
     
-        with sqlite3.connect("user.db")as con:
-            cur = con.cursor()
-            cur.execute("UPDATE user SET password=? WHERE email=?",(password,email))
-            con.commit()
+            with sqlite3.connect("user.db")as con:
+                cur = con.cursor()
+                cur.execute("UPDATE user SET password=? WHERE email=?",(password,email))
+                con.commit()
 
     return render_template("reset-password.html")
 

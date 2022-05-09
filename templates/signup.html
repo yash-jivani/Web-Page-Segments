@@ -54,6 +54,15 @@
                                 <input type="password" class="form-control" placeholder="Password" id="Cpasswd" name="conf">
                                 <label for="Cpasswd  " class="form-label">Confirm Password</label>
                             </div>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    <ul class=flashes w-100 style="color:rgb(248, 95, 95); text-decoration: none; font-weight: 600; text-transform: uppercase; text-align: center; list-style: none; border-radius: 0.5rem; background-color: #f0c6c6;">
+                                    {% for category, message in messages %}
+                                    <li class="{{ category }}">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            {% endwith %}
                             <!-- Terms and conditions -->
                             <form class="form-check ">
                                 <input type="checkbox" class="form-check-input" id="chk" checked></input>
